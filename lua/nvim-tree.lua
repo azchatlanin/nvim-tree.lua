@@ -179,65 +179,65 @@ function M.place_cursor_on_node()
 end
 
 function M.on_enter(netrw_disabled)
-  -- local bufnr = api.nvim_get_current_buf()
-  -- local bufname = api.nvim_buf_get_name(bufnr)
-  -- local buftype = api.nvim_buf_get_option(bufnr, "filetype")
-  -- local ft_ignore = _config.ignore_ft_on_setup
-  --
-  -- local stats = luv.fs_stat(bufname)
-  -- local is_dir = stats and stats.type == "directory"
-  -- local is_file = stats and stats.type == "file"
-  -- local cwd
-  -- if is_dir then
-  --   cwd = vim.fn.expand(bufname)
-  --   -- INFO: could potentially conflict with rooter plugins
-  --   vim.cmd("noautocmd cd " .. cwd)
-  -- end
-  --
-  -- local lines = not is_dir and api.nvim_buf_get_lines(bufnr, 0, -1, false) or {}
-  -- local buf_has_content = #lines > 1 or (#lines == 1 and lines[1] ~= "")
-  --
-  -- local buf_is_dir = is_dir and netrw_disabled
-  -- local buf_is_empty = bufname == "" and not buf_has_content
-  -- local should_be_preserved = vim.tbl_contains(ft_ignore, buftype)
-  --
-  -- local should_open = false
-  -- local should_focus_other_window = false
-  -- local should_find = false
-  -- if (_config.open_on_setup or _config.open_on_setup_file) and not should_be_preserved then
-  --   if buf_is_dir or buf_is_empty then
-  --     should_open = true
-  --   elseif is_file and _config.open_on_setup_file then
-  --     should_open = true
-  --     should_focus_other_window = true
-  --     should_find = _config.update_focused_file.enable
-  --   elseif _config.ignore_buffer_on_setup then
-  --     should_open = true
-  --     should_focus_other_window = true
-  --   end
-  -- end
-  --
-  -- local should_hijack = _config.hijack_directories.enable
-  --   and _config.hijack_directories.auto_open
-  --   and is_dir
-  --   and not should_be_preserved
-  --
-  -- -- Session that left a NvimTree Buffer opened, reopen with it
-  -- local existing_tree_wins = find_existing_windows()
-  -- if existing_tree_wins[1] then
-  --   api.nvim_set_current_win(existing_tree_wins[1])
-  -- end
-  --
-  -- if should_open or should_hijack or existing_tree_wins[1] ~= nil then
-  --   lib.open(cwd)
-  --
-  --   if should_focus_other_window then
-  --     vim.cmd "noautocmd wincmd p"
-  --     if should_find then
-  --       M.find_file(false)
-  --     end
-  --   end
-  -- end
+  local bufnr = api.nvim_get_current_buf()
+  local bufname = api.nvim_buf_get_name(bufnr)
+  local buftype = api.nvim_buf_get_option(bufnr, "filetype")
+  local ft_ignore = _config.ignore_ft_on_setup
+
+  local stats = luv.fs_stat(bufname)
+  local is_dir = stats and stats.type == "directory"
+  local is_file = stats and stats.type == "file"
+  local cwd
+  if is_dir then
+    cwd = vim.fn.expand(bufname)
+    -- INFO: could potentially conflict with rooter plugins
+    vim.cmd("noautocmd cd " .. cwd)
+  end
+
+  local lines = not is_dir and api.nvim_buf_get_lines(bufnr, 0, -1, false) or {}
+  local buf_has_content = #lines > 1 or (#lines == 1 and lines[1] ~= "")
+
+  local buf_is_dir = is_dir and netrw_disabled
+  local buf_is_empty = bufname == "" and not buf_has_content
+  local should_be_preserved = vim.tbl_contains(ft_ignore, buftype)
+
+  local should_open = false
+  local should_focus_other_window = false
+  local should_find = false
+  if (_config.open_on_setup or _config.open_on_setup_file) and not should_be_preserved then
+    if buf_is_dir or buf_is_empty then
+      should_open = true
+    elseif is_file and _config.open_on_setup_file then
+      should_open = true
+      should_focus_other_window = true
+      should_find = _config.update_focused_file.enable
+    elseif _config.ignore_buffer_on_setup then
+      should_open = true
+      should_focus_other_window = true
+    end
+  end
+
+  local should_hijack = _config.hijack_directories.enable
+    and _config.hijack_directories.auto_open
+    and is_dir
+    and not should_be_preserved
+
+  -- Session that left a NvimTree Buffer opened, reopen with it
+  local existing_tree_wins = find_existing_windows()
+  if existing_tree_wins[1] then
+    api.nvim_set_current_win(existing_tree_wins[1])
+  end
+
+  if should_open or should_hijack or existing_tree_wins[1] ~= nil then
+    lib.open(cwd)
+
+    if should_focus_other_window then
+      vim.cmd "noautocmd wincmd p"
+      if should_find then
+        M.find_file(false)
+      end
+    end
+  end
   M.initialized = true
 end
 
@@ -334,31 +334,31 @@ local function setup_autocommands(opts)
     })
   end
 
-  if not opts.actions.open_file.quit_on_open then
-    create_nvim_tree_autocmd("BufWipeout", { pattern = "NvimTree_*", callback = view._prevent_buffer_override })
-  else
-    create_nvim_tree_autocmd("BufWipeout", { pattern = "NvimTree_*", callback = view.abandon_current_window })
-  end
-
-  if opts.hijack_directories.enable then
-    create_nvim_tree_autocmd({ "BufEnter", "BufNewFile" }, { callback = M.open_on_directory })
-  end
-
-  if opts.reload_on_bufenter and not has_watchers then
-    create_nvim_tree_autocmd("BufEnter", { pattern = "NvimTree_*", callback = reloaders.reload_explorer })
-  end
-
-  if opts.view.centralize_selection then
-    create_nvim_tree_autocmd("BufEnter", {
-      pattern = "NvimTree_*",
-      callback = function()
-        vim.schedule(function()
-          local keys = api.nvim_replace_termcodes("zz", true, false, true)
-          api.nvim_feedkeys(keys, "n", true)
-        end)
-      end,
-    })
-  end
+  -- if not opts.actions.open_file.quit_on_open then
+  --   create_nvim_tree_autocmd("BufWipeout", { pattern = "NvimTree_*", callback = view._prevent_buffer_override })
+  -- else
+  --   create_nvim_tree_autocmd("BufWipeout", { pattern = "NvimTree_*", callback = view.abandon_current_window })
+  -- end
+  --
+  -- if opts.hijack_directories.enable then
+  --   create_nvim_tree_autocmd({ "BufEnter", "BufNewFile" }, { callback = M.open_on_directory })
+  -- end
+  --
+  -- if opts.reload_on_bufenter and not has_watchers then
+  --   create_nvim_tree_autocmd("BufEnter", { pattern = "NvimTree_*", callback = reloaders.reload_explorer })
+  -- end
+  --
+  -- if opts.view.centralize_selection then
+  --   create_nvim_tree_autocmd("BufEnter", {
+  --     pattern = "NvimTree_*",
+  --     callback = function()
+  --       vim.schedule(function()
+  --         local keys = api.nvim_replace_termcodes("zz", true, false, true)
+  --         api.nvim_feedkeys(keys, "n", true)
+  --       end)
+  --     end,
+  --   })
+  -- end
 end
 
 local DEFAULT_OPTS = { -- BEGIN_DEFAULT_OPTS
