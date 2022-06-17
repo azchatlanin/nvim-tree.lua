@@ -44,10 +44,16 @@ function M.get_last_group_node(node)
 end
 
 function M.expand_or_collapse(node)
-  node.open = not node.open
   if node.has_children then
     node.has_children = false
   end
+
+  if node.open then 
+    node.open = false
+  else
+    node.open = true
+  end
+  --node.open = not node.open
 
   if #node.nodes == 0 then
     core.get_explorer():expand(node)
