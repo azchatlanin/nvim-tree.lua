@@ -24,9 +24,9 @@ local function _draw(bufnr, lines, hl, signs)
   api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
   M.render_hl(bufnr, hl)
   api.nvim_buf_set_option(bufnr, "modifiable", false)
-  for _, sign in pairs(signs) do
-    vim.fn.sign_place(0, git.SIGN_GROUP, sign.sign, bufnr, { lnum = sign.lnum, priority = 1 })
-  end
+  -- for _, sign in pairs(signs) do
+  --   vim.fn.sign_place(0, git.SIGN_GROUP, sign.sign, bufnr, { lnum = sign.lnum, priority = 1 })
+  -- end
 end
 
 function M.render_hl(bufnr, hl)
@@ -34,9 +34,9 @@ function M.render_hl(bufnr, hl)
     return
   end
   api.nvim_buf_clear_namespace(bufnr, namespace_id, 0, -1)
-  -- for _, data in ipairs(hl or M.last_highlights) do
-  --   api.nvim_buf_add_highlight(bufnr, namespace_id, data[1], data[2], data[3], data[4])
-  -- end
+  for _, data in ipairs(hl or M.last_highlights) do
+    api.nvim_buf_add_highlight(bufnr, namespace_id, data[1], data[2], data[3], data[4])
+  end
 end
 
 local function should_show_arrows()
