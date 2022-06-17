@@ -15,25 +15,25 @@ function M.fn(keep_buffers)
   end
 
   local function iter(nodes)
-    for _, node in pairs(nodes) do
-      if node.open then
-        local new_open = false
-
-        if keep_buffers == true then
-          for _, buffer_path in ipairs(buffer_paths) do
-            local matches = utils.str_find(buffer_path, node.absolute_path)
-            if matches then
-              new_open = true
-            end
-          end
-        end
-
-        node.open = new_open
-      end
-      if node.nodes then
-        iter(node.nodes)
-      end
-    end
+    -- for _, node in pairs(nodes) do
+    --   if node.open then
+    --     local new_open = false
+    --
+    --     if keep_buffers == true then
+    --       for _, buffer_path in ipairs(buffer_paths) do
+    --         local matches = utils.str_find(buffer_path, node.absolute_path)
+    --         if matches then
+    --           new_open = true
+    --         end
+    --       end
+    --     end
+    --
+    --     node.open = new_open
+    --   end
+    --   if node.nodes then
+    --     iter(node.nodes)
+    --   end
+    -- end
   end
 
   iter(core.get_explorer().nodes)

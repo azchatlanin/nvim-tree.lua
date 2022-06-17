@@ -210,8 +210,7 @@ local function open_in_new_window(filename, mode, win_ids)
   if do_split or #api.nvim_list_wins() == 1 then
     cmd = string.format("%ssplit %s", vertical and "vertical " or "", fname)
   else
-    --cmd = string.format("edit %s", fname)
-    cmd = string.format("edit %s", filename)
+    cmd = string.format("edit %s", fname)
   end
 
   set_current_win_no_autocmd(target_winid)
