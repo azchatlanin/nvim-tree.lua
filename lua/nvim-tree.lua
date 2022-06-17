@@ -47,7 +47,7 @@ function M.open(cwd)
   cwd = cwd ~= "" and cwd or nil
   if view.is_visible() then
     lib.set_target_win()
-    --view.focus()
+    view.focus()
   else
     --lib.open(cwd)
   end
