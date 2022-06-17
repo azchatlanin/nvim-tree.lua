@@ -5,10 +5,10 @@ local utils = require "nvim-tree.utils"
 local M = {}
 
 local function expand(node)
-  node.open = true
-  if #node.nodes == 0 then
-    core.get_explorer():expand(node)
-  end
+  -- node.open = true
+  -- if #node.nodes == 0 then
+  --   core.get_explorer():expand(node)
+  -- end
 end
 
 local function gen_iterator()
