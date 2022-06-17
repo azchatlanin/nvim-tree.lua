@@ -26,23 +26,23 @@ function M.fn(name, with_open)
 end
 
 function M.force_dirchange(foldername, with_open)
-  -- local ps = log.profile_start("change dir %s", foldername)
-  --
-  -- if M.options.enable and vim.tbl_isempty(vim.v.event) then
-  --   if M.options.global then
-  --     vim.cmd("cd " .. vim.fn.fnameescape(foldername))
-  --   else
-  --     vim.cmd("lcd " .. vim.fn.fnameescape(foldername))
-  --   end
-  -- end
-  -- core.init(foldername)
-  -- if with_open then
-  --   require("nvim-tree.lib").open()
-  -- else
-  --   require("nvim-tree.renderer").draw()
-  -- end
-  --
-  -- log.profile_end(ps, "change dir %s", foldername)
+  local ps = log.profile_start("change dir %s", foldername)
+
+  if M.options.enable and vim.tbl_isempty(vim.v.event) then
+    if M.options.global then
+      vim.cmd("cd " .. vim.fn.fnameescape(foldername))
+    else
+      vim.cmd("lcd " .. vim.fn.fnameescape(foldername))
+    end
+  end
+  core.init(foldername)
+  if with_open then
+    require("nvim-tree.lib").open()
+  else
+    require("nvim-tree.renderer").draw()
+  end
+
+  log.profile_end(ps, "change dir %s", foldername)
 end
 
 function M.setup(options)
