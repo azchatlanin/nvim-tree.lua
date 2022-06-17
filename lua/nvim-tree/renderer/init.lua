@@ -23,7 +23,7 @@ local function _draw(bufnr, lines, hl, signs)
   -- api.nvim_buf_set_option(bufnr, "modifiable", true)
   -- api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
   -- M.render_hl(bufnr, hl)
-  -- api.nvim_buf_set_option(bufnr, "modifiable", false)
+  api.nvim_buf_set_option(bufnr, "modifiable", false)
   for _, sign in pairs(signs) do
     vim.fn.sign_place(0, git.SIGN_GROUP, sign.sign, bufnr, { lnum = sign.lnum, priority = 1 })
   end
