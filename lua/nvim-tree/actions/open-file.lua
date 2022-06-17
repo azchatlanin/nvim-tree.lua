@@ -129,15 +129,13 @@ local function pick_window()
 end
 
 local function open_file_in_tab(filename)
-  print "open_file_in_tab"
-  if M.quit_on_open then
-    view.close()
-  end
-  vim.cmd("tabe " .. vim.fn.fnameescape(filename))
+  -- if M.quit_on_open then
+  --   view.close()
+  -- end
+  -- vim.cmd("tabe " .. vim.fn.fnameescape(filename))
 end
 
 local function on_preview(buf_loaded)
-  print "on_preview"
   if not buf_loaded then
     vim.bo.bufhidden = "delete"
 
@@ -180,7 +178,6 @@ local function set_current_win_no_autocmd(winid)
 end
 
 local function open_in_new_window(filename, mode, win_ids)
-  print "open_in_new_window"
   local target_winid = get_target_winid(mode)
   if not target_winid then
     return
