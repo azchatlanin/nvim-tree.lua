@@ -292,12 +292,15 @@ function M.on_keypress(action)
       return
     end
     if not node.nodes then
+      print("q")
       return require("nvim-tree.actions.open-file").fn("preview", node.absolute_path)
     end
   elseif node.name == ".." then
+    print("u")
     return require("nvim-tree.actions.change-dir").fn ".."
   elseif action == "cd" then
     if node.nodes ~= nil then
+      print("e")
       require("nvim-tree.actions.change-dir").fn(lib.get_last_group_node(node).absolute_path)
     end
     return
