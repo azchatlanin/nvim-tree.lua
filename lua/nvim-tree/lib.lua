@@ -44,7 +44,6 @@ function M.get_last_group_node(node)
 end
 
 function M.expand_or_collapse(node)
-  print(1, node.open)
   node.open = not node.open
   if node.has_children then
     node.has_children = false
@@ -54,7 +53,6 @@ function M.expand_or_collapse(node)
     core.get_explorer():expand(node)
   end
 
-  print(2, node.open)
   renderer.draw()
 end
 
