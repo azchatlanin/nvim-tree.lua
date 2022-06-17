@@ -178,44 +178,44 @@ local function set_current_win_no_autocmd(winid)
 end
 
 local function open_in_new_window(filename, mode, win_ids)
-  local target_winid = get_target_winid(mode)
-  if not target_winid then
-    return
-  end
-  local do_split = mode == "split" or mode == "vsplit"
-  local vertical = mode ~= "split"
-
-  -- Target is invalid or window does not exist in current tabpage: create new window
-  if not target_winid or not vim.tbl_contains(win_ids, target_winid) then
-    local split_cmd = get_split_cmd()
-    local splitside = view.is_vertical() and "vsp" or "sp"
-    vim.cmd(split_cmd .. " " .. splitside)
-    target_winid = api.nvim_get_current_win()
-    lib.target_winid = target_winid
-
-    -- No need to split, as we created a new window.
-    do_split = false
-  elseif not vim.o.hidden then
-    -- If `hidden` is not enabled, check if buffer in target window is
-    -- modified, and create new split if it is.
-    local target_bufid = api.nvim_win_get_buf(target_winid)
-    if api.nvim_buf_get_option(target_bufid, "modified") then
-      do_split = true
-    end
-  end
-
-  local fname = vim.fn.fnameescape(filename)
-
-  local cmd
-  if do_split or #api.nvim_list_wins() == 1 then
-    cmd = string.format("%ssplit %s", vertical and "vertical " or "", fname)
-  else
-    cmd = string.format("edit %s", fname)
-  end
-
-  set_current_win_no_autocmd(target_winid)
-  pcall(vim.cmd, cmd)
-  lib.set_target_win()
+  -- local target_winid = get_target_winid(mode)
+  -- if not target_winid then
+  --   return
+  -- end
+  -- local do_split = mode == "split" or mode == "vsplit"
+  -- local vertical = mode ~= "split"
+  --
+  -- -- Target is invalid or window does not exist in current tabpage: create new window
+  -- if not target_winid or not vim.tbl_contains(win_ids, target_winid) then
+  --   local split_cmd = get_split_cmd()
+  --   local splitside = view.is_vertical() and "vsp" or "sp"
+  --   vim.cmd(split_cmd .. " " .. splitside)
+  --   target_winid = api.nvim_get_current_win()
+  --   lib.target_winid = target_winid
+  --
+  --   -- No need to split, as we created a new window.
+  --   do_split = false
+  -- elseif not vim.o.hidden then
+  --   -- If `hidden` is not enabled, check if buffer in target window is
+  --   -- modified, and create new split if it is.
+  --   local target_bufid = api.nvim_win_get_buf(target_winid)
+  --   if api.nvim_buf_get_option(target_bufid, "modified") then
+  --     do_split = true
+  --   end
+  -- end
+  --
+  -- local fname = vim.fn.fnameescape(filename)
+  --
+  -- local cmd
+  -- if do_split or #api.nvim_list_wins() == 1 then
+  --   cmd = string.format("%ssplit %s", vertical and "vertical " or "", fname)
+  -- else
+  --   cmd = string.format("edit %s", fname)
+  -- end
+  --
+  -- set_current_win_no_autocmd(target_winid)
+  -- pcall(vim.cmd, cmd)
+  -- lib.set_target_win()
 end
 
 local function is_already_open(filename, win_ids)
