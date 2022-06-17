@@ -34,7 +34,7 @@ function M.render_hl(bufnr, hl)
     return
   end
   api.nvim_buf_clear_namespace(bufnr, namespace_id, 0, -1)
-  for _, data in ipairs(hl or M.last_highlights) do
+  for _, data in ipairs(hl) do
     api.nvim_buf_add_highlight(bufnr, namespace_id, data[1], data[2], data[3], data[4])
   end
 end
@@ -51,7 +51,7 @@ local picture_map = {
 }
 
 function M.draw()
-  local bufnr;-- = view.get_bufnr()
+  local bufnr = view.get_bufnr()
   if not core.get_explorer() or not bufnr or not api.nvim_buf_is_loaded(bufnr) then
     return
   end
