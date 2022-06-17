@@ -307,8 +307,8 @@ function M.on_keypress(action)
     require("nvim-tree.actions.open-file").fn(action, node.link_to)
   -- elseif node.nodes ~= nil then
   --   lib.expand_or_collapse(node)
-  -- else
-  --   require("nvim-tree.actions.open-file").fn(action, node.absolute_path)
+  else
+    require("nvim-tree.actions.open-file").fn(action, node.absolute_path)
   end
 end
 
