@@ -20,7 +20,7 @@ local M = {
 local namespace_id = api.nvim_create_namespace "NvimTreeHighlights"
 
 local function _draw(bufnr, lines, hl, signs)
-  api.nvim_buf_set_option(bufnr, "modifiable", false)
+  api.nvim_buf_set_option(bufnr, "modifiable", true)
   api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
   M.render_hl(bufnr, hl)
   api.nvim_buf_set_option(bufnr, "modifiable", false)

@@ -49,9 +49,9 @@ function M.expand_or_collapse(node)
     node.has_children = false
   end
 
-  if #node.nodes == 0 then
-    core.get_explorer():expand(node)
-  end
+  -- if #node.nodes == 0 then
+  --   core.get_explorer():expand(node)
+  -- end
 
   renderer.draw()
 end
