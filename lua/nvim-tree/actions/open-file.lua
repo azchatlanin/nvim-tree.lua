@@ -213,9 +213,9 @@ local function open_in_new_window(filename, mode, win_ids)
     cmd = string.format("edit %s", fname)
   end
 
-  --set_current_win_no_autocmd(target_winid)
+  set_current_win_no_autocmd(target_winid)
   pcall(vim.cmd, cmd)
-  lib.set_target_win()
+  --lib.set_target_win()
 end
 
 local function is_already_open(filename, win_ids)
