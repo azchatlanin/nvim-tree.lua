@@ -51,7 +51,7 @@ local picture_map = {
 }
 
 function M.draw()
-  local bufnr = view.get_bufnr()
+  local bufnr;-- = view.get_bufnr()
   if not core.get_explorer() or not bufnr or not api.nvim_buf_is_loaded(bufnr) then
     return
   end

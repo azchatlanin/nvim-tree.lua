@@ -53,7 +53,7 @@ function M.expand_or_collapse(node)
     core.get_explorer():expand(node)
   end
 
-  --renderer.draw()
+  renderer.draw()
 end
 
 function M.set_target_win()
