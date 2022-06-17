@@ -384,7 +384,7 @@ function M._prevent_buffer_override()
     M.open { focus_tree = false }
     require("nvim-tree.renderer").draw()
     a.nvim_win_close(curwin, { force = true })
-    --require("nvim-tree.actions.open-file").fn("edit", bufname)
+    require("nvim-tree.actions.open-file").fn("edit", bufname)
   end)
 end
 
