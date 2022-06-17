@@ -261,9 +261,9 @@ function M.fn(mode, filename)
     return
   end
 
-  if not found then
-    open_in_new_window(filename, mode, win_ids)
-  end
+  -- if not found then
+  --   open_in_new_window(filename, mode, win_ids)
+  -- end
 
   if M.resize_window then
     view.resize()
