@@ -45,8 +45,9 @@ end
 
 function M.expand_or_collapse(node)
   node.open = not node.open
-  print("test")
+  print("expand_or_collapse", node.open)
   if node.has_children then
+    print("has_children", node.open)
     node.has_children = false
   end
 
