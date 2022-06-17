@@ -334,31 +334,31 @@ local function setup_autocommands(opts)
     })
   end
 
-  -- if not opts.actions.open_file.quit_on_open then
-  --   create_nvim_tree_autocmd("BufWipeout", { pattern = "NvimTree_*", callback = view._prevent_buffer_override })
-  -- else
-  --   create_nvim_tree_autocmd("BufWipeout", { pattern = "NvimTree_*", callback = view.abandon_current_window })
-  -- end
-  --
-  -- if opts.hijack_directories.enable then
-  --   create_nvim_tree_autocmd({ "BufEnter", "BufNewFile" }, { callback = M.open_on_directory })
-  -- end
-  --
-  -- if opts.reload_on_bufenter and not has_watchers then
-  --   create_nvim_tree_autocmd("BufEnter", { pattern = "NvimTree_*", callback = reloaders.reload_explorer })
-  -- end
-  --
-  -- if opts.view.centralize_selection then
-  --   create_nvim_tree_autocmd("BufEnter", {
-  --     pattern = "NvimTree_*",
-  --     callback = function()
-  --       vim.schedule(function()
-  --         local keys = api.nvim_replace_termcodes("zz", true, false, true)
-  --         api.nvim_feedkeys(keys, "n", true)
-  --       end)
-  --     end,
-  --   })
-  -- end
+  if not opts.actions.open_file.quit_on_open then
+    create_nvim_tree_autocmd("BufWipeout", { pattern = "NvimTree_*", callback = view._prevent_buffer_override })
+  else
+    create_nvim_tree_autocmd("BufWipeout", { pattern = "NvimTree_*", callback = view.abandon_current_window })
+  end
+
+  if opts.hijack_directories.enable then
+    create_nvim_tree_autocmd({ "BufEnter", "BufNewFile" }, { callback = M.open_on_directory })
+  end
+
+  if opts.reload_on_bufenter and not has_watchers then
+    create_nvim_tree_autocmd("BufEnter", { pattern = "NvimTree_*", callback = reloaders.reload_explorer })
+  end
+
+  if opts.view.centralize_selection then
+    create_nvim_tree_autocmd("BufEnter", {
+      pattern = "NvimTree_*",
+      callback = function()
+        vim.schedule(function()
+          local keys = api.nvim_replace_termcodes("zz", true, false, true)
+          api.nvim_feedkeys(keys, "n", true)
+        end)
+      end,
+    })
+  end
 end
 
 local DEFAULT_OPTS = { -- BEGIN_DEFAULT_OPTS

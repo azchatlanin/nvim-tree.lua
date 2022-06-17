@@ -87,7 +87,7 @@ local function create_buffer(bufnr)
     vim.bo[M.get_bufnr()][option] = value
   end
 
-  require("nvim-tree.actions").apply_mappings(M.get_bufnr())
+  --require("nvim-tree.actions").apply_mappings(M.get_bufnr())
 end
 
 local function get_size()
