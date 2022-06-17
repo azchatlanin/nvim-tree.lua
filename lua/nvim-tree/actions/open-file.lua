@@ -129,10 +129,10 @@ local function pick_window()
 end
 
 local function open_file_in_tab(filename)
-  if M.quit_on_open then
-    view.close()
-  end
-  vim.cmd("tabe " .. vim.fn.fnameescape(filename))
+  -- if M.quit_on_open then
+  --   view.close()
+  -- end
+  -- vim.cmd("tabe " .. vim.fn.fnameescape(filename))
 end
 
 local function on_preview(buf_loaded)
