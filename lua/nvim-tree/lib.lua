@@ -44,16 +44,16 @@ function M.get_last_group_node(node)
 end
 
 function M.expand_or_collapse(node)
-  node.open = not node.open
-  if node.has_children then
-    node.has_children = false
-  end
-
-  if #node.nodes == 0 then
-    core.get_explorer():expand(node)
-  end
-
-  renderer.draw()
+  -- node.open = not node.open
+  -- if node.has_children then
+  --   node.has_children = false
+  -- end
+  --
+  -- if #node.nodes == 0 then
+  --   core.get_explorer():expand(node)
+  -- end
+  --
+  -- renderer.draw()
 end
 
 function M.set_target_win()
@@ -74,10 +74,10 @@ local function handle_buf_cwd(cwd)
 end
 
 local function open_view_and_draw()
-  local cwd = vim.fn.getcwd()
-  view.open()
-  handle_buf_cwd(cwd)
-  renderer.draw()
+  -- local cwd = vim.fn.getcwd()
+  -- view.open()
+  -- handle_buf_cwd(cwd)
+  -- renderer.draw()
 end
 
 local function should_hijack_current_buf()
