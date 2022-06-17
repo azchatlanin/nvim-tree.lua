@@ -64,7 +64,7 @@ end
 
 --@private
 function M._dispatch_on_tree_open()
- -- dispatch(Event.TreeOpen, nil)
+  dispatch(Event.TreeOpen, nil)
 end
 
 --@private
