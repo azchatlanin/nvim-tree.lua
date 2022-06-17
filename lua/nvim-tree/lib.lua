@@ -74,10 +74,10 @@ local function handle_buf_cwd(cwd)
 end
 
 local function open_view_and_draw()
-  -- local cwd = vim.fn.getcwd()
-  -- view.open()
-  -- handle_buf_cwd(cwd)
-  -- renderer.draw()
+  local cwd = vim.fn.getcwd()
+  view.open()
+  handle_buf_cwd(cwd)
+  renderer.draw()
 end
 
 local function should_hijack_current_buf()
