@@ -64,7 +64,7 @@ end
 
 --@private
 function M._dispatch_on_tree_open()
-  dispatch(Event.TreeOpen, nil)
+ -- dispatch(Event.TreeOpen, nil)
 end
 
 --@private
@@ -117,7 +117,7 @@ end
 --Registers a handler for the TreeOpen event.
 --@param handler (function) Handler with the signature function(payload)
 function M.on_tree_open(handler)
---  register_handler(Event.TreeOpen, handler)
+  register_handler(Event.TreeOpen, handler)
 end
 
 --Registers a handler for the TreeClose event.
